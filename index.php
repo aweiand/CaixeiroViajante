@@ -1,0 +1,119 @@
+<!-- 
+ Um carteiro precisa entregar cartas em 6 cidades diferentes 
+ e de acordo com o seu chefe, ele deverá percorrer todas as 
+ cidades uma única vez e deverá voltar para a cidade de onde
+ partiu, utilizando a menor distância total percorrida.
+
+ Distâncias entre as cidades:
+
+ A -> B = 5   B -> C = 4   C -> D = 2   D -> E = 3   E -> F = 4
+ A -> C = 8   B -> D = 6   C -> E = 6   D -> F = 6
+ A -> D = 7   B -> E = 7   C -> F = 7
+ A -> E = 6   B -> F = 9
+ A -> F = 4 
+
+ Regra:
+
+ O carteiro não pode percorrer cidades vizinhas.
+	-	-	0	1	2	3	4	5
+	-	-	A	B	C	D	E	F
+	0	A	*	5	8	7	6	4
+	1	B	5	*	4	6	7	9
+	2	C	8	4	*	2	6	7
+	3	D	7	6	2	*	3	6
+	4	E	6	7	6	3	*	4
+	5	F	4	9	7	6	4	*
+
+caminho a partir do A
+	A -> E -> C -> F -> D -> B -> A
+	0	 4	  2	   5	3	 1	  0 = 36
+
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="pt-br" xml:lang="pt-br">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="Currículo Folha" />
+    <meta name="keywords" content="Augusto, Weiand, Guto " />
+    <title>Problema do Caixeiro Viajante - Augusto W</title>
+	<script type="text/javascript" src="jquery-1.5.js"></script>
+	<script type="text/javascript" src="data.js"></script>
+	<script type='text/javascript'>
+		/**
+		 * Evento de clique do botão calcula totais
+		 */
+		$("#calcTotais").live("click", function(){
+			caixeiro(traduzLetra(checkMarcado(1)));
+			$("#total").html ("O menor percurso a partir de "+checkMarcado(1)+" é "+mCamin);
+		});
+
+		/**
+		 * Evento de clique do botão Ir
+		 */
+		$("#env").live("click", function(){
+			if (!eVizinha(checkMarcado(1), checkMarcado(2))){
+				setCaminhoInd(checkMarcado(1), checkMarcado(2));
+				$("#pontos").append('<li>'+checkMarcado(1)+' à '+checkMarcado(2)+'</li>');
+				$("#totalUsuario").html ("Foi percorrido "+caminho+" até agora.");
+
+				$("#city1 #"+checkMarcado(1)).attr("disabled", "disabled");
+				$("#city2 #"+checkMarcado(2)).attr("disabled", "disabled");
+				$("#city1 #"+checkMarcado(2)).attr("checked", true);
+			} else
+				alert("Cidades Vizinhas...");
+		});
+	</script>
+</head>
+<body>
+	<span style='float: left; width: 100%;'>
+		<button id='env'><< Ir >></button>
+		<button id='calcTotais'><< Calcula Totais >></button>
+	</span>
+
+	<div id='city1' style='float: left; margin: 10px; width: 100px;'>
+		A
+		<input type='radio' id='A' name='city1' checked/><br />
+		B
+		<input type='radio' id='B' name='city1' /><br />	
+		C
+		<input type='radio' id='C' name='city1' /><br />
+		D
+		<input type='radio' id='D' name='city1' /><br />
+		E	
+		<input type='radio' id='E' name='city1' /><br />	
+		F
+		<input type='radio' id='F' name='city1' /><br />	
+	</div>
+
+	<div id='city2' style='float: left; margin: 10px; width: 100px;'>
+		A
+		<input type='radio' id='A' name='city2' /><br />
+		B
+		<input type='radio' id='B' name='city2' /><br />	
+		C
+		<input type='radio' id='C' name='city2' checked/><br />
+		D
+		<input type='radio' id='D' name='city2' /><br />
+		E	
+		<input type='radio' id='E' name='city2' /><br />	
+		F
+		<input type='radio' id='F' name='city2' /><br />	
+	</div>
+
+	<div id='mapa' style='float: left; margin: 30px; width: 350px;'>
+		<span id='totalUsuario'></span><br />
+		<span>Percurso Efetuado</span>
+		<ul id='pontos'>
+		</ul>
+	</div>
+
+	<div id='pontsUser' style='float: left; margin: 30px; width: 350px;'>
+		<span>Percurso Efetuado Automaticamente</span>
+		<ul id='pontosAut'>
+		</ul>
+		<span id='total'></span>
+	</div>
+
+</body>
+</html>
