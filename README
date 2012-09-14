@@ -1,0 +1,14 @@
+Este sistema traz um exemplo de aplicação do problema 
+clássico de programação do Caixeiro Viajante, implementado
+com a linguagem HTML e Javascript e com auxílio da biblioteca
+jQuery.
+O algoritmo implementado não tem como base teórica nenhum tipo
+de algoritmo já pronto do estilo A* (a estrela), foi um algoritmo
+pensado e planejado por mim desde o seu início.
+Foi utilizado para completar um trabalho da cadeira de 
+Inteligência Artificial do Curso de Licenciatura em Computação.
+Espero que possa ajudar com ele.
+
+by Augusto Weiand
+e-mail: guto.weiand@gmail.com
+Em: 14/09/2012
